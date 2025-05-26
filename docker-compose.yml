@@ -1,0 +1,12 @@
+services:
+  backend:
+    image: softsolutionsfatecvotorantim/api-softsolutions:latest
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./api-softsolutions/.env
+
+  frontend:
+    image: softsolutionsfatecvotorantim/front-softsolutions:latest
+    ports:
+      - "4200:80"

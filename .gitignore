@@ -1,0 +1,18 @@
+# Node
+node_modules/
+
+# Docker
+*.env
+*.log
+.docker/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Outros
+*.sqlite
+*.bak
