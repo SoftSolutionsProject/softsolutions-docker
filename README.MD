@@ -1,75 +1,136 @@
 # SoftSolutions - Docker Compose
 
-Este repositório permite executar localmente a aplicação SoftSolutions, composta por:
+Este repositório oferece uma solução completa para execução local da aplicação SoftSolutions utilizando Docker Compose, proporcionando um ambiente de desenvolvimento integrado e de fácil configuração.
 
-- Backend (NestJS com PostgreSQL integrado)
-- Frontend (Angular servido com NGINX)
+A aplicação SoftSolutions é composta por dois serviços principais:
+- 🟦 **Backend:** API desenvolvida em NestJS com banco de dados PostgreSQL integrado
+- 🟦 **Frontend:** Interface de usuário em Angular servida através de NGINX
 
-## Como executar localmente
+---
 
-### Pré-requisitos:
+## 🚀 Como executar localmente
+
+### ✅ Pré-requisitos
 
 - Docker instalado
 - Docker Compose instalado
 
-## Estrutura dos containers
+---
 
-| Serviço  | Porta Local | Descrição                     |
-|----------|-------------|-------------------------------|
-| Frontend | 4200        | Interface Angular (NGINX)     |
-| Backend  | 4000        | API NestJS + PostgreSQL       |
+## 🔗 Estrutura dos containers
 
-## Como rodar
+| Serviço   | Porta Local | Descrição                          |
+|-----------|-------------|-------------------------------------|
+| Frontend  | 4200        | Interface Angular via NGINX        |
+| Backend   | 4000        | API NestJS + PostgreSQL embutido   |
 
-1. Clone este repositório:
+---
 
-git clone caminho/local
-cd softsolutions-docker
+## 📦 Estrutura de pastas
 
-2. Rode o docker-compose:
-
-docker-compose up -d
-
-Pronto.
-
-## Acesse:
-
-- Frontend: http://localhost:4200
-- Backend: http://localhost:4000
-
-## Estrutura do projeto:
-
+```
 softsolutions-docker/
-├── docker-compose.yml
-├── README.md
-└── .env (opcional - uso local)
+├── docker-compose.yml          # Orquestração dos containers
+├── README.md                    # Este arquivo
+├── api-softsolutions/           # Pasta que contém o .env do backend
+│   └── .env                     # Variáveis de ambiente do backend (local)
+```
 
-## Variáveis de ambiente (opcional com .env)
+> ⚠️ O arquivo `.env` do backend **fica dentro da pasta `api-softsolutions`** e **NÃO é enviado ao GitHub** (já está no `.gitignore`).
 
-Se quiser, pode criar um arquivo `.env` (opcional) e mapear variáveis usadas no backend e frontend.
+---
 
-Exemplo:
+## 🧠 Como rodar
 
-BACKEND_PORT=4000
-FRONTEND_PORT=4200
+1️⃣ Clone este repositório:
 
-## Comandos úteis:
+```bash
+git clone https://github.com/SoftSolutionsProject/softsolutions-docker.git
+cd softsolutions-docker
+```
 
-docker-compose up -d                 # Inicia os containers
-docker-compose down                  # Para e remove os containers
-docker-compose logs -f backend       # Logs do backend
-docker-compose logs -f frontend      # Logs do frontend
-docker ps                            # Ver containers rodando
-docker-compose stop                  # Pausa os containers
-docker-compose start                 # Continua containers pausados
+2️⃣ Crie o arquivo de variáveis de ambiente do backend:
 
-## Observações
+```bash
+# Caminho: ./api-softsolutions/.env
+```
 
-- Este ambiente é focado em desenvolvimento local.
-- O banco de dados PostgreSQL está rodando integrado no backend.
-- As imagens frontend e backend estão publicadas no Docker Hub:
+Exemplo de `.env`:
 
-Backend: softsolutionsfatecvotorantim/api-softsolutions:latest
-Frontend: softsolutionsfatecvotorantim/front-softsolutions:latest
+```env
+DATABASE_URL=postgresql://usuario:senha@host:porta/database
+JWT_SECRET=sua_chave_secreta
+EMAIL_SUPPORT_USER=seu_email@gmail.com
+EMAIL_SUPPORT_PASS=sua_senha
+EMAIL_SUPPORT_DESTINATION=destino@gmail.com
+```
 
-## Pronto para usar.
+3️⃣ Execute os containers:
+
+```bash
+docker compose up -d
+```
+
+---
+
+## 🌐 Acesse os serviços
+
+- Frontend ➡️ http://localhost:4200
+- Backend ➡️ http://localhost:4000
+
+---
+
+## 🔗 Integração Frontend ↔ Backend
+
+Ao acessar o frontend em:
+
+```
+http://localhost:4200
+```
+
+A aplicação Angular se comunica automaticamente com o backend, disponível em:
+
+```
+http://localhost:4000
+```
+
+Ambos os serviços estão rodando como containers Docker, utilizando imagens públicas hospedadas no Docker Hub:
+
+- 🐳 Backend: `softsolutionsfatecvotorantim/api-softsolutions:latest`
+- 🐳 Frontend: `softsolutionsfatecvotorantim/front-softsolutions:latest`
+
+> ✅ A comunicação entre frontend e backend já está totalmente configurada, simulando um ambiente real de produção, sem necessidade de configurações adicionais. Basta executar:
+
+```bash
+docker compose up -d
+```
+
+---
+
+## 🛠️ Comandos úteis
+
+| Comando                                  | Descrição                              |
+|-------------------------------------------|-----------------------------------------|
+| docker compose up -d                      | Inicia os containers                   |
+| docker compose down                       | Para e remove os containers            |
+| docker compose logs -f backend            | Ver logs do backend                    |
+| docker compose logs -f frontend           | Ver logs do frontend                   |
+| docker ps                                 | Ver containers rodando                 |
+| docker compose stop                       | Pausa os containers                    |
+| docker compose start                      | Retoma containers pausados             |
+
+---
+
+## 📄 Observações importantes
+
+- ✅ O banco de dados PostgreSQL está embutido no backend (não há container separado).
+- ✅ As imagens estão publicadas no Docker Hub:
+
+| Serviço   | Imagem no Docker Hub                                      |
+|-----------|-----------------------------------------------------------|
+| Backend   | `softsolutionsfatecvotorantim/api-softsolutions:latest`   |
+| Frontend  | `softsolutionsfatecvotorantim/front-softsolutions:latest` |
+
+- 🔐 O arquivo `.env` deve ser criado manualmente na pasta `api-softsolutions` e **não deve ser enviado para o GitHub**.
+
+---
